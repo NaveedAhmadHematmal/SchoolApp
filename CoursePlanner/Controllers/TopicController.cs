@@ -21,11 +21,20 @@ namespace CoursePlanner.Controllers
         }
 
         // GET: Topic
-        [Route("Index")]
+        [Route("Index/{id}")]
+        [Route("{id}")]
         [Route("")]
-        public async Task<IActionResult> Index()
+        [Route("Index")]
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.TopicViewModel.ToListAsync());
+            if (id != null)
+            {
+                return View(await _context.TopicViewModel.Where(x => x.Course.CourseId == id).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.TopicViewModel.ToListAsync());
+            }
         }
 
         // GET: Topic/Details/5

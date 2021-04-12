@@ -40,7 +40,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TeacherId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.TeacherId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TeacherId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.TeacherId">Delete</a> |
+                @Html.ActionLink("Course", "Index", "Course", new { id=item.TeacherId }) |
             </td>
         </tr>
 }
