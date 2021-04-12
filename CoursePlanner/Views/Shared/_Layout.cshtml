@@ -37,8 +37,13 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - CoursePlanner - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container" >
+            <div style="display: inline">
+                &copy; 2021 - CoursePlanner - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+            <div style="display: inline">
+                <partial name="_Culture" />
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
