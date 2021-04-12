@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CoursePlanner.Data;
 using CoursePlanner.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoursePlanner.Controllers
 {
@@ -24,6 +25,7 @@ namespace CoursePlanner.Controllers
 
         [Route("Index")]
         [Route("")]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TeacherViewModel.ToListAsync());
@@ -31,6 +33,7 @@ namespace CoursePlanner.Controllers
 
         // GET: Teacher/Details/5
         [Route("Details")]
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,6 +53,7 @@ namespace CoursePlanner.Controllers
 
         // GET: Teacher/Create
         [Route("Create")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -61,6 +65,7 @@ namespace CoursePlanner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("TeacherId,FirstName,LastName,Email")] TeacherViewModel teacherViewModel)
         {
             if (ModelState.IsValid)
@@ -74,6 +79,7 @@ namespace CoursePlanner.Controllers
 
         // GET: Teacher/Edit/5
         [Route("Edit/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +101,7 @@ namespace CoursePlanner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("TeacherId,FirstName,LastName,Email")] TeacherViewModel teacherViewModel)
         {
             if (id != teacherViewModel.TeacherId)
@@ -127,6 +134,7 @@ namespace CoursePlanner.Controllers
 
         // GET: Teacher/Delete/5
         [Route("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,6 +156,7 @@ namespace CoursePlanner.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Route("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var teacherViewModel = await _context.TeacherViewModel.FindAsync(id);
