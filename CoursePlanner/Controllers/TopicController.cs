@@ -10,6 +10,7 @@ using CoursePlanner.Models;
 
 namespace CoursePlanner.Controllers
 {
+    [Route("[Controller]")]
     public class TopicController : Controller
     {
         private readonly CoursePlannerDbContext _context;
@@ -20,12 +21,15 @@ namespace CoursePlanner.Controllers
         }
 
         // GET: Topic
+        [Route("Index")]
+        [Route("")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TopicViewModel.ToListAsync());
         }
 
         // GET: Topic/Details/5
+        [Route("Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace CoursePlanner.Controllers
         }
 
         // GET: Topic/Create
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +59,7 @@ namespace CoursePlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Create")]
         public async Task<IActionResult> Create([Bind("TopicId,Topic,Details,CodeSnippetsLink,Assignment,Remarks")] TopicViewModel topicViewModel)
         {
             if (ModelState.IsValid)
@@ -66,6 +72,7 @@ namespace CoursePlanner.Controllers
         }
 
         // GET: Topic/Edit/5
+        [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +93,7 @@ namespace CoursePlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("TopicId,Topic,Details,CodeSnippetsLink,Assignment,Remarks")] TopicViewModel topicViewModel)
         {
             if (id != topicViewModel.TopicId)
@@ -117,6 +125,7 @@ namespace CoursePlanner.Controllers
         }
 
         // GET: Topic/Delete/5
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace CoursePlanner.Controllers
         // POST: Topic/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var topicViewModel = await _context.TopicViewModel.FindAsync(id);

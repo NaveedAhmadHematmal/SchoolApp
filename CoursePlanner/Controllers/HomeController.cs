@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace CoursePlanner.Controllers
 {
+    [Route("[Controller]")]
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,12 +21,13 @@ namespace CoursePlanner.Controllers
         {
             _logger = logger;
         }
-
+        [Route("")]
+        [Route("Index")]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();
@@ -40,6 +43,7 @@ namespace CoursePlanner.Controllers
             return LocalRedirect(returnUrl);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [Route("Error")]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
